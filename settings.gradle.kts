@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Veiditorg"
+rootProject.name = "veiditorg"
 include(":app")
  
