@@ -24,5 +24,15 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+
+        <action
+            android:id="@+id/action_SecondFragment_to_UserHomepageActivity"
+            app:destination="@+id/UserHomePageActivity"/>
+
     </fragment>
+    <activity
+        android:id="@+id/UserHomePageActivity"
+        android:name="com.example.veiditorg.UserHomepageActivity"
+        tools:layout="@layout/activity_user_homepage"/>
+
 </navigation>
