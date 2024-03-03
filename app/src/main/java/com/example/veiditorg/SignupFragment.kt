@@ -7,18 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_USERNAME_INPUT = "param1"
-private const val ARG_FULLNAME_INPUT = "param2"
-private const val ARG_PASSWORD_INPUT = "param3"
-private const val ARG_EMAIL_INPUT = "param4"
-private const val ARG_PHONE_INPUT = "param5"
+import com.google.android.material.snackbar.Snackbar
 
 /**
  * A simple [Fragment] subclass.
- * Use the [SignupFragment.newInstance] factory method to
- * create an instance of this fragment.
  */
 class SignupFragment : Fragment() {
 
@@ -37,6 +29,23 @@ class SignupFragment : Fragment() {
         emailInput = view.findViewById(R.id.signupEmail)
         phoneInput = view.findViewById(R.id.signupPhone)
         signupBtn = view.findViewById(R.id.signupButton)
+
+        signupBtn.setOnClickListener{
+            val username = usernameInput.text.toString()
+            val fullname = fullnameInput.text.toString()
+            val password = passwordInput.text.toString()
+            val email = emailInput.text.toString()
+            val phone = phoneInput.text.toString()
+
+            saveNewUser(username, fullname, password, email, phone)
+
+            val user = listOf(username, fullname, password, email, phone)
+            if (user.contains("")) {
+                Snackbar.make(view, "Signup unsuccessful", Snackbar.LENGTH_SHORT).show()
+            } else {
+                Snackbar.make(view, "Successful signup", Snackbar.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun onCreateView(
@@ -47,28 +56,7 @@ class SignupFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_signup, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @param param3 Parameter 3.
-         * @param param4 Parameter 4.
-         * @param param5 Parameter 5.
-         * @return A new instance of fragment SignupFragment.
-         */
-        @JvmStatic
-        fun newInstance(param1: String, param2: String, param3: String, param4: String, param5: String) =
-            SignupFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_USERNAME_INPUT, param1)
-                    putString(ARG_FULLNAME_INPUT, param2)
-                    putString(ARG_PASSWORD_INPUT, param3)
-                    putString(ARG_EMAIL_INPUT, param4)
-                    putString(ARG_PHONE_INPUT, param5)
-                }
-            }
+    private fun saveNewUser(username: String, fullname: String, password: String, email: String, phone: String){
+        val newUser = listOf(username, fullname, password, email, phone)
     }
 }
