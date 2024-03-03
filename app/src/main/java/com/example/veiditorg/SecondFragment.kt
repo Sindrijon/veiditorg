@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
@@ -21,6 +22,7 @@ class SecondFragment : Fragment() {
     lateinit var usernameInput : EditText
     lateinit var passwordInput : EditText
     lateinit var loginBtn : Button
+    private lateinit var sessionManager: SessionManager
 
     private var _binding: FragmentSecondBinding? = null
 
@@ -55,6 +57,12 @@ class SecondFragment : Fragment() {
         passwordInput = view.findViewById(R.id.editTextPassword)
         loginBtn = view.findViewById(R.id.loginButton)
 
+
+        val textViewSignup: TextView = view.findViewById(R.id.textViewSignup)
+        textViewSignup.setOnClickListener {
+            findNavController().navigate(R.id.action_SecondFragment_to_SignupFragment)
+        }
+
         loginBtn.setOnClickListener {
 
             val username = usernameInput.text.toString()
@@ -62,9 +70,9 @@ class SecondFragment : Fragment() {
 
             if (isValidCredentials(username, password)) {
                 findNavController().navigate(R.id.action_SecondFragment_to_UserHomepageActivity)
-
+                sessionManager.startSession()
             } else {
-                Snackbar.make(view, "vittlaust dæmi", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(view, "Invalid username or password", Snackbar.LENGTH_SHORT).show()
             }
 
 

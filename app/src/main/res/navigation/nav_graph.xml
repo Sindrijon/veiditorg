@@ -5,6 +5,11 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/FirstFragment">
 
+
+    <activity
+        android:id="@+id/UserHomePageActivity"
+        android:name="com.example.veiditorg.UserHomepageActivity"
+        tools:layout="@layout/activity_user_homepage"/>
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.example.veiditorg.FirstFragment"
@@ -28,11 +33,16 @@
         <action
             android:id="@+id/action_SecondFragment_to_UserHomepageActivity"
             app:destination="@+id/UserHomePageActivity"/>
-
+        <action
+            android:id="@+id/action_SecondFragment_to_SignupFragment"
+            app:destination="@+id/SignupFragment"
+            />
     </fragment>
-    <activity
-        android:id="@+id/UserHomePageActivity"
-        android:name="com.example.veiditorg.UserHomepageActivity"
-        tools:layout="@layout/activity_user_homepage"/>
+    <fragment
+        android:id="@+id/SignupFragment"
+        android:name="com.example.veiditorg.SignupFragment"
+        android:label="Sign Up"
+        tools:layout="@layout/fragment_signup"
+        />
 
 </navigation>
