@@ -8,23 +8,19 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
-import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
-import com.example.veiditorg.databinding.FragmentSecondBinding
+import com.example.veiditorg.databinding.FragmentLoginBinding
 import com.google.android.material.snackbar.Snackbar
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class SecondFragment : Fragment() {
+class LoginFragment : Fragment() {
 
     lateinit var usernameInput : EditText
     lateinit var passwordInput : EditText
     lateinit var loginBtn : Button
-    private lateinit var sessionManager: SessionManager
-
-    private var _binding: FragmentSecondBinding? = null
+    private var _binding: FragmentLoginBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -45,7 +41,7 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -60,7 +56,7 @@ class SecondFragment : Fragment() {
 
         val textViewSignup: TextView = view.findViewById(R.id.textViewSignup)
         textViewSignup.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_SignupFragment)
+            findNavController().navigate(R.id.action_LoginFragment_to_SignupFragment)
         }
 
         loginBtn.setOnClickListener {
@@ -69,13 +65,10 @@ class SecondFragment : Fragment() {
             val password = passwordInput.text.toString()
 
             if (isValidCredentials(username, password)) {
-                findNavController().navigate(R.id.action_SecondFragment_to_UserHomepageActivity)
-                sessionManager.startSession()
+                //fara á userhomepage
             } else {
                 Snackbar.make(view, "Invalid username or password", Snackbar.LENGTH_SHORT).show()
             }
-
-
         }
     }
 
