@@ -1,4 +1,4 @@
-package com.example.veiditorg
+package com.veiditorg
 
 import org.junit.Test
 

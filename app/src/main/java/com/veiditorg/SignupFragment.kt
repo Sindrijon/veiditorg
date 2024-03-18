@@ -1,4 +1,4 @@
-package com.example.veiditorg
+package com.veiditorg
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import com.example.veiditorg.R
 import com.google.android.material.snackbar.Snackbar
 
 /**

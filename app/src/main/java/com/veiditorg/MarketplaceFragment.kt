@@ -1,4 +1,4 @@
-package com.example.veiditorg
+package com.veiditorg
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.example.veiditorg.R
 import com.example.veiditorg.databinding.FragmentMarketplaceBinding
 
 /**

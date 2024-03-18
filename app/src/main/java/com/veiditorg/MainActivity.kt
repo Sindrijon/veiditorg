@@ -1,4 +1,4 @@
-package com.example.veiditorg
+package com.veiditorg
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
@@ -9,6 +9,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import com.example.veiditorg.R
 import com.example.veiditorg.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

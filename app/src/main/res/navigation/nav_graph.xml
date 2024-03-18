@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/MarketplaceFragment"
-        android:name="com.example.veiditorg.MarketplaceFragment"
+        android:name="com.veiditorg.MarketplaceFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_marketplace">
 
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/LoginFragment"
-        android:name="com.example.veiditorg.LoginFragment"
+        android:name="com.veiditorg.LoginFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_login">
 
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/SignupFragment"
-        android:name="com.example.veiditorg.SignupFragment"
+        android:name="com.veiditorg.SignupFragment"
         android:label="Sign Up"
         tools:layout="@layout/fragment_signup"
         />

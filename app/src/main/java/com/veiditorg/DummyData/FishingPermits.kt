@@ -1,4 +1,4 @@
-package com.example.veiditorg.dummydata
+package com.veiditorg.DummyData
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
