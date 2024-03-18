@@ -32,10 +32,26 @@ class MarketplaceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val permitCard = binding.cardViewPermit
+        val expandedCard = binding.cardViewPermitExpanded
 
+        permitCard.setOnClickListener {
+            if (expandedCard.visibility == View.VISIBLE) {
+                // Collapse the card
+                permitCard.visibility = View.VISIBLE
+                expandedCard.visibility = View.GONE
+            } else {
+                // Expand the card
+                permitCard.visibility = View.GONE
+                expandedCard.visibility = View.VISIBLE
+            }
+        }
+
+/**
         binding.buttonFirst.setOnClickListener {
             findNavController().navigate(R.id.action_MarketplaceFragment_to_LoginFragment)
         }
+        */
     }
 
     override fun onDestroyView() {
