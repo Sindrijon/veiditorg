@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     companion object {
         // Initialize an empty list of known users
+        // THIS IS WHERE USER DATA IS STORED!
         val allUsers: RegisteredUsers = RegisteredUsers(mutableListOf())
     }
 
