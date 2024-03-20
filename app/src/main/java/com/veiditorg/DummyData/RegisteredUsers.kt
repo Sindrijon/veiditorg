@@ -11,7 +11,10 @@ class RegisteredUsers (
         users.remove(user)
     }
 
-    fun toList() : MutableList<User> {
-        return users
+    fun validUser(username: String, password: String): Boolean {
+        // Returns true if a user with "username" and "password" exists in list of users
+        users.forEach{ user -> if (user.isValid(username, password)) {return true} }
+        return false
     }
+
 }

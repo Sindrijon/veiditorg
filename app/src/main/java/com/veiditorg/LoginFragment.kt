@@ -27,14 +27,9 @@ class LoginFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val validCredentials = arrayOf(
-        Pair("user1", "password1"),
-        Pair("user2", "password2"),
-        Pair("user3", "password3")
-    )
-
     private fun isValidCredentials(username: String, password: String): Boolean {
-        return validCredentials.any { it.first == username && it.second == password }
+        //Checks if user exists in list of registered users
+        return MainActivity.allUsers.validUser(username, password)
     }
 
     override fun onCreateView(

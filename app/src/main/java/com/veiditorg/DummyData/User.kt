@@ -6,4 +6,8 @@ data class User(
     val password: String,
     val email: String,
     val phone: String
-)
+) {
+    fun isValid(name: String, pass: String): Boolean {
+        return name == username && pass == password
+    }
+}
