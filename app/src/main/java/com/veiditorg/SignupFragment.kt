@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import com.example.veiditorg.R
 import com.google.android.material.snackbar.Snackbar
+import com.veiditorg.DummyData.User
 
 /**
  * A simple [Fragment] subclass.
@@ -44,7 +45,7 @@ class SignupFragment : Fragment() {
             if (user.contains("")) {
                 Snackbar.make(view, "Signup unsuccessful", Snackbar.LENGTH_SHORT).show()
             } else {
-                Snackbar.make(view, "Successful signup", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(view, username + " has successfully signed up", Snackbar.LENGTH_SHORT).show()
             }
         }
     }
@@ -58,6 +59,7 @@ class SignupFragment : Fragment() {
     }
 
     private fun saveNewUser(username: String, fullname: String, password: String, email: String, phone: String){
-        val newUser = listOf(username, fullname, password, email, phone)
+        val newUser = User(username, fullname, password, email, phone)
+        MainActivity.allUsers.addUser(newUser)
     }
 }

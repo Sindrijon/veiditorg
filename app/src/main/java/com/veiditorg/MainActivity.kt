@@ -11,11 +11,17 @@ import android.view.Menu
 import android.view.MenuItem
 import com.example.veiditorg.R
 import com.example.veiditorg.databinding.ActivityMainBinding
+import com.veiditorg.DummyData.RegisteredUsers
+import com.veiditorg.DummyData.User
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    companion object {
+        // Initialize an empty list of known users
+        val allUsers: RegisteredUsers = RegisteredUsers(mutableListOf())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
