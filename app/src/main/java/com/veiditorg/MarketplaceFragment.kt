@@ -1,9 +1,11 @@
 package com.veiditorg
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,28 +17,34 @@ import com.veiditorg.DummyData.Permit
  */
 class MarketplaceFragment : Fragment() {
 
-    private lateinit var newRecyclerview : RecyclerView
-    private lateinit var newArrayList: ArrayList<Permit>
-    lateinit var imageId : Array<Int>
-    lateinit var veidistadur : Array<String>
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var permitArrayList: ArrayList<Permit>
+    private lateinit var imageId: Array<Int>
+    private lateinit var veidistadur: Array<String>
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_marketplace, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Initialize your views and data here after the view has been created
-        // For example:
-        newRecyclerview = view.findViewById(R.id.recyclerView)
-        // Initialize other views and set up your RecyclerView here
-    }
 
+        // Initialize the RecyclerView and Adapter here
+        recyclerView = view.findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+        recyclerView.setHasFixedSize(true)
+
+        // Bara fyrir test.
+        permitArrayList = ArrayList()
+        for (i in imageId.indices) {
+            val permit = Permit(titleImage = imageId[i], river = veidistadur[i], ownerID = "SampleOwner", startDuration = java.time.Duration.ofDays(1), endDuration = java.time.Duration.ofDays(2))
+            permitArrayList.add(permit)
+        }
+
+        recyclerView.adapter = MyAdapter(permitArrayList)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,38 +57,24 @@ class MarketplaceFragment : Fragment() {
             R.drawable.a,
             R.drawable.b,
             R.drawable.a,
+            R.drawable.b,
+            R.drawable.a,
             R.drawable.b
         )
 
         veidistadur = arrayOf(
             "Elliðaá",
-            "laxá í Mjódd,",
+            "Laxá í Mjódd",
             "Elliðaá",
-            "laxá í Mjódd,",
+            "Laxá í Mjódd",
             "Elliðaá",
-            "laxá í Mjódd,",
+            "Laxá í Mjódd",
             "Elliðaá",
-            "laxá í Mjódd,"
+            "Laxá í Mjódd",
+            "Elliðaá",
+            "Laxá í Mjódd"
         )
     }
 
-//    newRecylerview =findViewById(R.id.recyclerView)
-//    newRecylerview.layoutManager = LinearLayoutManager(this)
-//    newRecylerview.setHasFixedSize(true)
-//
-//
-//    newArrayList = arrayListOf<Permit>()
-//    tempArrayList = arrayListOf<Permit>()
-//    getUserdata()
-//
-//    private fun getUserdata() {
-//
-//        for(i in imageId.indices){
-//
-//            val news = Permit(imageId[i],veidistadur[i])
-//            newArrayList.add(news)
-//
-//        }
 }
-
 
