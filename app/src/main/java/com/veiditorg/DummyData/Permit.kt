@@ -8,6 +8,7 @@ data class Permit(
     val river: String,
     val startDuration: Duration,
     val endDuration: Duration,
-    val forTrade: Boolean = false
+    val forTrade: Boolean = false,
+    val titleImage: Int
 )
 // Need to implement a method to give the permits ID
