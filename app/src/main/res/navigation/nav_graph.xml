@@ -35,4 +35,10 @@
         android:name="com.veiditorg.SignupFragment"
         android:label="Sign Up"
         tools:layout="@layout/fragment_signup" />
+
+    <fragment
+        android:id="@+id/HomepageFragment"
+        android:name="com.veiditorg.HomepageFragment"
+        android:label="Home Page"
+        tools:layout="@layout/fragment_homepage" />
 </navigation>
