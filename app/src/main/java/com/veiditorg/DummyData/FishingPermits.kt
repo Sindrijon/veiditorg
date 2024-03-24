@@ -4,14 +4,22 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
 class FishingPermits(
-    private val permits: MutableList<Permit>
+    private val permits: MutableList<Permit>,
+    private var idCounter: Int = 1
 ) {
+    // Contains all fishing permits in a mutable list
     class PermitViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    // This class is unfinished but it is supposed to connect to the xml file for the permits
-    // and it will hold all permits in a mutable list.
     fun addPermit(permit: Permit) {
+        permit.setID(idCounter)
+        idCounter += 1
         permits.add(permit)
+    }
+
+    fun addPermits(listOfPermits: MutableList<Permit>) {
+        for (permit in listOfPermits) {
+            this.addPermit(permit)
+        }
     }
 
     fun deletePermit(permit: Permit) {

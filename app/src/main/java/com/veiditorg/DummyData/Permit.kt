@@ -1,14 +1,18 @@
 package com.veiditorg.DummyData
 
-import java.time.Duration
+import java.time.LocalDate
+
 // Simple data class that holds permit information
 data class Permit(
-    val permitID: Int = 0,
-    val ownerID: String,
+    var permitID: Int = 0,
+    var ownerID: String,
     val river: String,
-    val startDuration: Duration,
-    val endDuration: Duration,
-    val forTrade: Boolean = false,
+    val startDate: LocalDate,
+    val endDate: LocalDate,
+    var forTrade: Boolean = false,
     val titleImage: Int
-)
-// Need to implement a method to give the permits ID
+) {
+    fun setID(id: Int) {
+        permitID = id
+    }
+}

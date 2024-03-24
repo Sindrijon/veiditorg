@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.veiditorg.R
 import com.veiditorg.DummyData.Permit
+import java.time.LocalDate
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -39,7 +40,7 @@ class MarketplaceFragment : Fragment() {
         // Bara fyrir test.
         permitArrayList = ArrayList()
         for (i in imageId.indices) {
-            val permit = Permit(titleImage = imageId[i], river = veidistadur[i], ownerID = "SampleOwner", startDuration = java.time.Duration.ofDays(1), endDuration = java.time.Duration.ofDays(2))
+            val permit = Permit(titleImage = imageId[i], river = veidistadur[i], ownerID = "SampleOwner", startDate = LocalDate.parse("2024-6-14"), endDate = LocalDate.parse("2024-6-21"))
             permitArrayList.add(permit)
         }
 

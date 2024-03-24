@@ -3,6 +3,7 @@ package com.veiditorg.DummyData
 class RegisteredUsers (
     private val users: MutableList<User>
 ) {
+    // Contains all registered users in a mutable list
     fun addUser(user: User) {
         users.add(user)
     }

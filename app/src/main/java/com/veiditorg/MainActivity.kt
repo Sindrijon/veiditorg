@@ -1,5 +1,6 @@
 package com.veiditorg
 
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -10,8 +11,11 @@ import androidx.fragment.app.Fragment
 import com.example.veiditorg.R
 import com.example.veiditorg.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.veiditorg.DummyData.FishingPermits
+import com.veiditorg.DummyData.Permit
 import com.veiditorg.DummyData.RegisteredUsers
 import com.veiditorg.DummyData.User
+import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         // DummyData users:
         private var dummyUser1 = User("User1", "User One Usersson", "user1", "user@user.com", "1231111")
-        private var dummyUser2 = User("User2", "User Two Usersson", "user2", "user@usre.is", "4562222")
+        private var dummyUser2 = User("User2", "User Two Usersson", "user2", "user@user.is", "4562222")
         private var dummyUser3 = User("User3", "User Three Usersson", "user3", "user@user.dk", "7893333")
 
         // Initialize a list of known users
