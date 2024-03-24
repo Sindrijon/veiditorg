@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/MarketplaceFragment"
-        android:name="com.veiditorg.MarketplaceFragment"
+        android:name="com.veiditorg.Marketplace"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_marketplace">
 

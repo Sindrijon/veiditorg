@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "996655553118",
+    "firebase_url": "https://veiditorg-f4b09-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "veiditorg-f4b09",
+    "storage_bucket": "veiditorg-f4b09.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996655553118:android:86fc54de73a0fedef9b2cf",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVgXjiOyLEoczlZhxxo_fLELTeVhT9E3U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996655553118:android:33308a50223cfd70f9b2cf",
+        "android_client_info": {
+          "package_name": "com.example.veiditorg"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVgXjiOyLEoczlZhxxo_fLELTeVhT9E3U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
