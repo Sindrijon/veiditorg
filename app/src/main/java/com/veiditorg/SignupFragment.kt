@@ -25,12 +25,12 @@ class SignupFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        usernameInput = view.findViewById(R.id.signupUsername)
-        fullnameInput = view.findViewById(R.id.signupFullname)
-        passwordInput = view.findViewById(R.id.signupPassword)
-        emailInput = view.findViewById(R.id.signupEmail)
-        phoneInput = view.findViewById(R.id.signupPhone)
-        signupBtn = view.findViewById(R.id.signupButton)
+        usernameInput = view.findViewById<EditText>(R.id.signupUsername)
+        fullnameInput = view.findViewById<EditText>(R.id.signupFullname)
+        passwordInput = view.findViewById<EditText>(R.id.signupPassword)
+        emailInput = view.findViewById<EditText>(R.id.signupEmail)
+        phoneInput = view.findViewById<EditText>(R.id.signupPhone)
+        signupBtn = view.findViewById<Button>(R.id.signupButton)
 
         signupBtn.setOnClickListener{
             val username = usernameInput.text.toString()

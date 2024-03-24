@@ -41,4 +41,10 @@
         android:name="com.veiditorg.HomepageFragment"
         android:label="Home Page"
         tools:layout="@layout/fragment_homepage" />
+
+    <fragment
+        android:id="@+id/NewPermitFragment"
+        android:name="com.veiditorg.NewPermitFragment"
+        android:label="New Permit"
+        tools:layout="@layout/fragment_newpermit" />
 </navigation>
