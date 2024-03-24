@@ -5,14 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
-import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.example.veiditorg.R
 import com.example.veiditorg.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.veiditorg.DummyData.RegisteredUsers
+import com.veiditorg.DummyData.User
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,9 +19,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var bottomNavigationView: BottomNavigationView
     companion object {
-        // Initialize an empty list of known users
-        // THIS IS WHERE USER DATA IS STORED!
-        val allUsers: RegisteredUsers = RegisteredUsers(mutableListOf())
+        // DummyData users:
+        private var dummyUser1 = User("User1", "User One Usersson", "user1", "user@user.com", "1231111")
+        private var dummyUser2 = User("User2", "User Two Usersson", "user2", "user@usre.is", "4562222")
+        private var dummyUser3 = User("User3", "User Three Usersson", "user3", "user@user.dk", "7893333")
+
+        // Initialize a list of known users
+        // THIS IS WHERE ALL USER DATA IS STORED!
+        val allUsers: RegisteredUsers = RegisteredUsers(mutableListOf(dummyUser1, dummyUser2, dummyUser3))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
