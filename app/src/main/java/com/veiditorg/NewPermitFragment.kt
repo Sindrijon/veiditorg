@@ -1,7 +1,6 @@
 package com.veiditorg
 
 import android.app.DatePickerDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -35,17 +34,28 @@ class NewPermitFragment : Fragment() {
     }
 
     private fun showDatePicker(){
-        val datePickerDialog = DatePickerDialog(this, {DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
-                                                      val selectedDate = Calendar.getInstance()
-            selectedDate.set(year, monthOfYear, dayOfMonth)
-            val dateFormat = SimpleDateFormat("dd/MM/yyy", Locale.getDefault())
-            val formattedDate = dateFormat.format(selectedDate.time)
-            startDateText.text = "Selected Date: " + formattedDate
-        },
+        // Create a DatePickerDialog
+        // Þessi kóði virkar ekki af því DatePickerDialog þarf context en það vill ekki taka við this sem context???
+        /*
+        val datePickerDialog = DatePickerDialog(
+            this, {DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
+                // Create a new Calendar instance to hold the selected date
+                val selectedDate = Calendar.getInstance()
+                // Set the selected date using the values received from the DatePicker dialog
+                selectedDate.set(year, monthOfYear, dayOfMonth)
+                // Create a SimpleDateFormat to format the date as "dd/MM/yyyy"
+                val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                // Format the selected date into a string
+                val formattedDate = dateFormat.format(selectedDate.time)
+                // Update the TextView to display the selected date with the "Selected Date: " prefix
+                startDateText.text = "Selected Date: $formattedDate"
+            },
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
         )
+        // Show the DatePicker dialog
         datePickerDialog.show()
+         */
     }
 }
