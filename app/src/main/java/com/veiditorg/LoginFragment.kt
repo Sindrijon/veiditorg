@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import com.example.veiditorg.R
 import com.example.veiditorg.databinding.FragmentLoginBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 
 /**
@@ -45,14 +46,22 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //fjarlægir navigationbar frá LoginFragment
+        val bottomNavigationView = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomNavigationView?.visibility = View.GONE
+
         usernameInput = view.findViewById(R.id.editTextUsername)
         passwordInput = view.findViewById(R.id.editTextPassword)
         loginBtn = view.findViewById(R.id.loginButton)
-
+        val currentActivity = activity
 
         val textViewSignup: TextView = view.findViewById(R.id.textViewSignup)
         textViewSignup.setOnClickListener {
-            findNavController().navigate(R.id.action_LoginFragment_to_SignupFragment)
+            if(currentActivity != null) {
+                val transaction = currentActivity.supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.frame_layout, SignupFragment())
+                transaction.commit()
+            }
         }
 
         loginBtn.setOnClickListener {
@@ -60,8 +69,10 @@ class LoginFragment : Fragment() {
             val username = usernameInput.text.toString()
             val password = passwordInput.text.toString()
 
-            if (isValidCredentials(username, password)) {
-                //fara á userhomepage
+            if (isValidCredentials(username, password) && currentActivity !=null) {
+                    val transaction = currentActivity.supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.frame_layout, MarketplaceFragment())
+                    transaction.commit()
             } else {
                 Snackbar.make(view, "Invalid username or password", Snackbar.LENGTH_SHORT).show()
             }
@@ -73,4 +84,7 @@ class LoginFragment : Fragment() {
         _binding = null
     }
 }
+
+
+
 

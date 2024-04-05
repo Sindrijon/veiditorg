@@ -6,8 +6,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import android.view.Menu
+import android.view.View
 import androidx.fragment.app.Fragment
-import com.example.myapplication.Marketplace
 import com.example.veiditorg.R
 import com.example.veiditorg.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -37,10 +37,11 @@ class MainActivity : AppCompatActivity() {
         replaceFragment(LoginFragment())
 
 
+
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.homepage -> replaceFragment(HomepageFragment())
-                R.id.marketplace -> replaceFragment(Marketplace())
+                R.id.marketplace -> replaceFragment(MarketplaceFragment())
                // R.id.addFishingpermit -> replaceFragment(FishingPermitFragment())
                 //R.id.trade -> replaceFragment(TradeFragment())
             }
