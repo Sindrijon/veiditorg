@@ -44,7 +44,7 @@
                 android:layout_marginTop="46dp"
                 android:drawableLeft="@drawable/baseline_account_circle_24"
                 android:ems="10"
-                android:hint="Username"
+                android:hint="email"
                 android:inputType="text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
