@@ -24,7 +24,8 @@ import java.util.Locale
 class NewPermitFragment : Fragment() {
 
     private lateinit var database: DatabaseReference
-    private lateinit var mAuth: FirebaseAuth
+    private lateinit var auth: FirebaseAuth
+    private val calendar = Calendar.getInstance()
 
     lateinit var riverInput: EditText
     lateinit var startDateText: TextView
@@ -34,45 +35,70 @@ class NewPermitFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_newpermit, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize your views here
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        val ownerId = currentUser?.uid ?: ""
+
         riverInput = view.findViewById<EditText>(R.id.newpermitRiver)
         startDateText = view.findViewById<TextView>(R.id.DateStart)
         endDateText = view.findViewById<TextView>(R.id.DateEnd)
 
         val registerBtn: Button = view.findViewById(R.id.registerBtn)
         registerBtn.setOnClickListener {
-            // Now that riverInput, startDateText, and endDateText have been initialized, you can use them here
-
-            // Extract the text values from your inputs
             val river = riverInput.text.toString()
-            val ownerId = startDateText.text.toString() // Using start date as ownerId
-            val forTrade = endDateText.text.toString() // Using end date as forTrade
+            val startDate = startDateText.text.toString()
+            val forTrade = endDateText.text.toString()
 
-            // Initialize your Firebase database reference
-            database = FirebaseDatabase.getInstance().getReference("permit")
+            if (ownerId.isNotEmpty()) {
+                database = FirebaseDatabase.getInstance().getReference("permit")
 
-            // Create a new Permit instance with the input values
-            val permit = Permit(river, ownerId, forTrade)
+                val permit = Permit(river, ownerId, forTrade)
 
-            // Use ownerId as the child name for this permit
-            database.child(ownerId).setValue(permit).addOnSuccessListener {
-                // Clear the input fields after successful save
-                riverInput.text.clear()
-                startDateText.text = ""
-                endDateText.text = ""
+                database.child(ownerId).setValue(permit).addOnSuccessListener {
+                    riverInput.text.clear()
+                    startDateText.text = ""
+                    endDateText.text = ""
 
-                Toast.makeText(requireContext(), "Successfully Saved", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Successfully Saved", Toast.LENGTH_SHORT).show()
 
-            }.addOnFailureListener {
-                Toast.makeText(requireContext(), "Failed", Toast.LENGTH_SHORT).show()
+                }.addOnFailureListener {
+                    Toast.makeText(requireContext(), "Failed", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(requireContext(), "No user logged in", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+    private fun showDatePicker(textView: TextView){
+        // Create a DatePickerDialog
+        // Þessi kóði virkar ekki af því DatePickerDialog þarf context en það vill ekki taka við this sem context???
+
+        val datePickerDialog = DatePickerDialog(
+            requireContext(), {DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
+                // Create a new Calendar instance to hold the selected date
+                val selectedDate = Calendar.getInstance()
+                // Set the selected date using the values received from the DatePicker dialog
+                selectedDate.set(year, monthOfYear, dayOfMonth)
+                // Create a SimpleDateFormat to format the date as "dd/MM/yyyy"
+                val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                // Format the selected date into a string
+                val formattedDate = dateFormat.format(selectedDate.time)
+                // Update the TextView to display the selected date with the "Selected Date: " prefix
+                textView.text = "Selected Date: $formattedDate"
+
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+        // Show the DatePicker dialog
+        datePickerDialog.show()
+
     }
 }
