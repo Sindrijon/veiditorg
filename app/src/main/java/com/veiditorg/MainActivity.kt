@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.homepage -> replaceFragment(HomepageFragment())
                 R.id.marketplace -> replaceFragment(MarketplaceFragment())
-               // R.id.addFishingpermit -> replaceFragment(FishingPermitFragment())
+                R.id.addFishingpermit -> replaceFragment(NewPermitFragment())
                 //R.id.trade -> replaceFragment(TradeFragment())
             }
             true
