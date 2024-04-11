@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#1E7AA0"
-    tools:context="com.veiditorg.NewPermitFragment">
+    tools:context=".NewPermitFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
@@ -20,7 +20,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4" >
+        app:layout_constraintTop_toTopOf="@id/guideline4">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -28,9 +28,11 @@
 
             <EditText
                 android:id="@+id/newpermitRiver"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
                 android:ems="10"
                 android:hint="River"
                 android:inputType="text"
@@ -38,47 +40,43 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/newpermitStartText"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/DateStart"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Select Start Date:"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:ems="10"
+                android:hint="Date start"
+                android:inputType="date"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/newpermitRiver" />
+                app:layout_constraintTop_toBottomOf="@id/newpermitRiver" />
+
+            <EditText
+                android:id="@+id/DateEnd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:ems="10"
+                android:hint="Date end"
+                android:inputType="date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/DateStart" />
 
             <Button
-                android:id="@+id/newpermitStartDate"
+                android:id="@+id/registerBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Show date picker"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
+                android:text="Skrá"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/newpermitStartText"/>
-
-            <TextView
-                android:id="@+id/newpermitEndText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Select End Date:"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/newpermitStartDate" />
-
-            <Button
-                android:id="@+id/newpermitEndDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Show date picker"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/newpermitEndText"/>
-
-
+                app:layout_constraintTop_toBottomOf="@id/DateEnd" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
