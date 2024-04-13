@@ -1,0 +1,32 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.veiditorg.com.veiditorg.MainActivity">
+
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Marketplace"
+        android:id="@+id/marketplace"
+        android:icon="@drawable/baseline_home_24"
+        />
+    <item
+        android:title="AddFishingpermit"
+        android:id="@+id/addFishingpermit"
+        android:icon="@drawable/baseline_add_circle_outline_24"
+        />
+    <item
+        android:id="@+id/trade"
+        android:icon="@drawable/baseline_compare_arrows_24"
+        android:title="Trade"/>
+
+    <item
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Homeapage"
+        android:id="@+id/homepage"
+        android:icon="@drawable/baseline_account_circle_24"
+        />
+
+</menu>
+
