@@ -40,7 +40,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
+            <Button
                 android:id="@+id/DateStart"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -49,12 +49,12 @@
                 android:layout_marginEnd="16dp"
                 android:ems="10"
                 android:hint="Date start"
-                android:inputType="date"
+                android:focusable="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/newpermitRiver" />
 
-            <EditText
+            <Button
                 android:id="@+id/DateEnd"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
                 android:layout_marginEnd="16dp"
                 android:ems="10"
                 android:hint="Date end"
-                android:inputType="date"
+                android:focusable="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/DateStart" />

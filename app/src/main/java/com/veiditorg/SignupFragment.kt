@@ -14,7 +14,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.veiditorg.DummyData.User
 
 /**
  * A simple [Fragment] subclass.
