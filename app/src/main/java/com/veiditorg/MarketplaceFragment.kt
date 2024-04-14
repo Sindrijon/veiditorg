@@ -80,6 +80,7 @@ class MarketplaceFragment : Fragment() {
         val bottomNavigationView = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView?.visibility = View.VISIBLE
 
+        val forTrade = true
 
         permitRecyclerView = view.findViewById(R.id.recyclerView)
         permitRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -89,10 +90,14 @@ class MarketplaceFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(PermitViewModel::class.java)
 
-        viewModel.allPermits.observe(viewLifecycleOwner, Observer {
-            Log.d("Marketplace", "Permits list updated: ${it.size} items")
+        viewModel.allPermits.observe(viewLifecycleOwner, Observer {allPermits ->
 
-            adapter.updatePermitList(it)
+            val forTradePermits = allPermits.filter { permit ->
+                permit.forTrade == forTrade
+            }
+            Log.d("Marketplace", "Permits list updated: ${forTradePermits.size} items")
+
+            adapter.updatePermitList(forTradePermits)
         })
     }
 }

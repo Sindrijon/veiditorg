@@ -10,7 +10,6 @@ import com.veiditorg.modul.Permit
 class MyAdapter : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
     private val permitList = ArrayList<Permit>()
-    private val filteredList = ArrayList<Permit>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -31,12 +30,6 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
         this.permitList.addAll(permitList)
         notifyDataSetChanged()
 
-    }
-
-    fun filterForTrade(){
-        filteredList.clear()
-        filteredList.addAll(permitList.filter { it.forTrade })
-        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
