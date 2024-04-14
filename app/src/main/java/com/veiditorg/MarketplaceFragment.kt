@@ -85,7 +85,7 @@ class MarketplaceFragment : Fragment() {
         permitRecyclerView = view.findViewById(R.id.recyclerView)
         permitRecyclerView.layoutManager = LinearLayoutManager(context)
         permitRecyclerView.setHasFixedSize(true)
-        adapter = MyAdapter()
+        adapter = MyAdapter(false)
         permitRecyclerView.adapter = adapter
 
         viewModel = ViewModelProvider(this).get(PermitViewModel::class.java)

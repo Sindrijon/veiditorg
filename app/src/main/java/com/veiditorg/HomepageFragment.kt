@@ -1,11 +1,13 @@
 package com.veiditorg
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Switch
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -87,7 +89,7 @@ class HomepageFragment : Fragment() {
         permitRecyclerView = view.findViewById(R.id.homepageRecyclerview)
         permitRecyclerView.layoutManager = LinearLayoutManager(context)
         permitRecyclerView.setHasFixedSize(true)
-        adapter = MyAdapter()
+        adapter = MyAdapter(true)
         permitRecyclerView.adapter = adapter
 
         viewModel = ViewModelProvider(this).get(PermitViewModel::class.java)
@@ -97,7 +99,7 @@ class HomepageFragment : Fragment() {
             val currentUserPermits = allPermits.filter { permit ->
                 permit.ownerId==ownerId
             }
-            Log.d("Marketplace", "Permits list updated: ${currentUserPermits.size} items")
+            Log.d("Homepage", "Permits list updated: ${currentUserPermits.size} items")
 
             adapter.updatePermitList(currentUserPermits)
         })
