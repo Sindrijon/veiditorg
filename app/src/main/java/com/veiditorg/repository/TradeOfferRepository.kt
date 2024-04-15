@@ -8,40 +8,39 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.veiditorg.modul.Permit
+import com.veiditorg.modul.TradeOffer
 import java.lang.Exception
 
-class FishingPermitRepository {
-    private val databaseReference : DatabaseReference = FirebaseDatabase.getInstance().getReference("permit")
+class TradeOfferRepository {
+    private val databaseReference : DatabaseReference = FirebaseDatabase.getInstance().getReference("tradeoffer")
 
-    @Volatile private var INSTANCE : FishingPermitRepository ?= null
+    @Volatile private var INSTANCE : TradeOfferRepository ?= null
 
-    fun getInstance() : FishingPermitRepository {
+    fun getInstance() : TradeOfferRepository {
         return INSTANCE ?: synchronized(this){
 
-            val instance = FishingPermitRepository()
+            val instance = TradeOfferRepository()
             INSTANCE = instance
             instance
         }
     }
-
-
-    fun loadPermit(permitList : MutableLiveData<List<Permit>>){
+    fun loadTradeOffer(tradeOfferList : MutableLiveData<List<TradeOffer>>){
 
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 try {
 
-                    val _permitList : List<Permit> =snapshot.children.map {dataSnapshot ->
+                    val _tradeOfferList : List<TradeOffer> =snapshot.children.map { dataSnapshot ->
 
-                        dataSnapshot.getValue(Permit::class.java)!!
+                        dataSnapshot.getValue(TradeOffer::class.java)!!
 
                     }
 
-                    permitList.postValue(_permitList)
+                    tradeOfferList.postValue(_tradeOfferList)
 
                 }catch (e : Exception){
-                    Log.e("FishingPermitRepository", "Error loading permits", e)
+                    Log.e("TradeOfferRepository", "Error loading trades", e)
 
 
                 }
@@ -54,4 +53,5 @@ class FishingPermitRepository {
         })
 
     }
+
 }
