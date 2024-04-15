@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@color/white"
+    android:elevation="4dp">
+
+    <!-- Offered Permit -->
+    <TextView
+        android:id="@+id/textViewOfferedPermitLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Offered Permit:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/textViewOfferedPermit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Dagsetning: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewOfferedPermitLabel"/>
+
+    <!-- Requested Permit -->
+    <TextView
+        android:id="@+id/textViewRequestedPermitLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Requested Permit:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewOfferedPermit"/>
+
+    <TextView
+        android:id="@+id/textViewRequestedPermit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Dagsetning: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewRequestedPermitLabel"/>
+
+    <!-- Action Buttons -->
+    <Button
+        android:id="@+id/buttonAccept"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Accept"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/textViewRequestedPermit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/buttonDecline"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"/>
+
+    <Button
+        android:id="@+id/buttonDecline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Decline"
+        app:layout_constraintTop_toTopOf="@id/buttonAccept"
+        app:layout_constraintStart_toEndOf="@id/buttonAccept"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/buttonAccept"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
