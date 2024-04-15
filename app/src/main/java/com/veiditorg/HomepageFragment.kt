@@ -17,6 +17,7 @@ import com.veiditorg.adapter.MyAdapter
 import com.veiditorg.modul.PermitViewModel
 import androidx.lifecycle.Observer
 import com.google.firebase.auth.FirebaseAuth
+import com.veiditorg.adapter.HomepageAdapter
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -33,7 +34,7 @@ class HomepageFragment : Fragment() {
 
     private lateinit var viewModel: PermitViewModel
     private lateinit var permitRecyclerView: RecyclerView
-    lateinit var adapter: MyAdapter
+    lateinit var adapter: HomepageAdapter
     private lateinit var auth: FirebaseAuth
 
     private var param1: String? = null
@@ -89,7 +90,7 @@ class HomepageFragment : Fragment() {
         permitRecyclerView = view.findViewById(R.id.homepageRecyclerview)
         permitRecyclerView.layoutManager = LinearLayoutManager(context)
         permitRecyclerView.setHasFixedSize(true)
-        adapter = MyAdapter(true)
+        adapter = HomepageAdapter()
         permitRecyclerView.adapter = adapter
 
         viewModel = ViewModelProvider(this).get(PermitViewModel::class.java)

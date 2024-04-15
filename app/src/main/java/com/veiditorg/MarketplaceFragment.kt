@@ -1,5 +1,6 @@
 package com.veiditorg
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -85,7 +86,7 @@ class MarketplaceFragment : Fragment() {
         permitRecyclerView = view.findViewById(R.id.recyclerView)
         permitRecyclerView.layoutManager = LinearLayoutManager(context)
         permitRecyclerView.setHasFixedSize(true)
-        adapter = MyAdapter(false)
+        adapter = MyAdapter()
         permitRecyclerView.adapter = adapter
 
         viewModel = ViewModelProvider(this).get(PermitViewModel::class.java)
