@@ -1,6 +1,5 @@
 package com.veiditorg.modul
 
-import java.time.LocalDate
 
 data class Permit(
     var river: String? = null,
@@ -10,3 +9,4 @@ data class Permit(
     var endDate: String? = null,
     var permitID: String? = null
 )
+
