@@ -3,16 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:paddingTop="8dp"
     android:layout_marginHorizontal="8dp"
     android:background="@color/white"
     android:foreground="?android:attr/selectableItemBackground">
 
-    <!-- Removed ShapeableImageView -->
 
     <TextView
-        android:id="@+id/tvriver"
+        android:id="@+id/tvriverOffer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -27,24 +25,24 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvstartdate"
+        android:id="@+id/tvstartdateOffer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Start Date:"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/tvriver"
-        app:layout_constraintStart_toStartOf="@id/tvriver"
-        app:layout_constraintEnd_toEndOf="@id/tvriver" />
+        app:layout_constraintTop_toBottomOf="@id/tvriverOffer"
+        app:layout_constraintStart_toStartOf="@id/tvriverOffer"
+        app:layout_constraintEnd_toEndOf="@id/tvriverOffer" />
 
     <TextView
-        android:id="@+id/tvenddate"
+        android:id="@+id/tvenddateOffer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="EndDate"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/tvstartdate"
-        app:layout_constraintStart_toStartOf="@id/tvstartdate"
-        app:layout_constraintEnd_toEndOf="@id/tvstartdate" />
+        app:layout_constraintTop_toBottomOf="@id/tvstartdateOffer"
+        app:layout_constraintStart_toStartOf="@id/tvstartdateOffer"
+        app:layout_constraintEnd_toEndOf="@id/tvstartdateOffer" />
 
     <View
         android:id="@+id/divider"
@@ -52,12 +50,12 @@
         android:layout_height="1dp"
         android:layout_marginTop="8dp"
         android:background="@color/underline"
-        app:layout_constraintTop_toBottomOf="@id/tvenddate"
+        app:layout_constraintTop_toBottomOf="@id/tvenddateOffer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/makeatrade"
+        android:id="@+id/makeatradeOffer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -65,7 +63,7 @@
         app:backgroundTint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.888"
-        app:layout_constraintStart_toEndOf="@+id/tvriver"
+        app:layout_constraintStart_toEndOf="@+id/tvriverOffer"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/baseline_delete_24" />
 
