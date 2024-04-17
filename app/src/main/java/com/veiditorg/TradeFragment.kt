@@ -1,5 +1,8 @@
 package com.veiditorg
 
+import android.app.PendingIntent
+import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,22 +11,29 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.veiditorg.R
+
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.RemoteMessage
+
 import com.veiditorg.adapter.TradeOfferAdapter
 import com.veiditorg.modul.TradeOffer
 import com.veiditorg.modul.TradeOfferViewModel
-
-
-
-
+import kotlin.random.Random
 
 
 class TradeFragment : Fragment(), TradeOfferAdapter.TradeOfferClickListener {
@@ -111,6 +121,57 @@ class TradeFragment : Fragment(), TradeOfferAdapter.TradeOfferClickListener {
             adapter.updatePermitList(currentUserOffers)
         })
 
+/*
+        //test
+        val database = FirebaseDatabase.getInstance()
+        val permitRef = database.getReference()
+        permitRef.child("tradeoffer").addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                //val tradeOffer = snapshot.getValue(TradeOffer::class.java)
+                //if(tradeOffer !=null && tradeOffer.respondingUserId==ownerId){
+                    //showNotification("New Trade Offer", "You have a new trade offer.")
+                //}
+                Toast.makeText(context, "Plís virkaðu", Toast.LENGTH_SHORT).show()
+            }
+            private fun showNotification(title: String, message: String) {
+                val context = activity ?: return
+                // Create an intent to open the TradeFragment when notification is clicked
+
+                // Build the notification
+                val notification = NotificationCompat.Builder(context, "channel_id")
+                    .setContentTitle(title)
+                    .setContentText(message)
+                    .setSmallIcon(R.drawable.baseline_circle_notifications_24)
+                    .setAutoCancel(true)
+                    .build()
+
+                // Show the notification
+                NotificationManagerCompat.from(requireContext()).notify(0, notification)
+            }
+
+
+
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
+
+
+
+ */
     }
 
     private fun getSelectedTradeOffer(): TradeOffer? {
