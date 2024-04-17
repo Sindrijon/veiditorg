@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.veiditorg.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.veiditorg.adapter.TradeOfferAdapter
 import com.veiditorg.modul.TradeOffer
@@ -30,6 +31,7 @@ class TradeFragment : Fragment(), TradeOfferAdapter.TradeOfferClickListener {
     private lateinit var viewModel: TradeOfferViewModel
     private lateinit var tradeOfferRecyclerView: RecyclerView
     lateinit var adapter: TradeOfferAdapter
+    private lateinit var auth: FirebaseAuth
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -90,6 +92,9 @@ class TradeFragment : Fragment(), TradeOfferAdapter.TradeOfferClickListener {
         val bottomNavigationView = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView?.visibility = View.VISIBLE
 
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        val ownerId = currentUser?.uid ?: ""
 
         tradeOfferRecyclerView = view.findViewById(R.id.TradeOfferrecyclerView)
         tradeOfferRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -98,9 +103,12 @@ class TradeFragment : Fragment(), TradeOfferAdapter.TradeOfferClickListener {
         tradeOfferRecyclerView.adapter = adapter
 
         viewModel = ViewModelProvider(this).get(TradeOfferViewModel::class.java)
-        viewModel.allTradeoffers.observe(viewLifecycleOwner, Observer {
+        viewModel.allTradeoffers.observe(viewLifecycleOwner, Observer {allOffers ->
+            val currentUserOffers = allOffers.filter{tradeOffer ->
+                tradeOffer.respondingUserId==ownerId
+            }
 
-            adapter.updatePermitList(it)
+            adapter.updatePermitList(currentUserOffers)
         })
 
     }
@@ -113,11 +121,23 @@ class TradeFragment : Fragment(), TradeOfferAdapter.TradeOfferClickListener {
         // Handle what happens when an offer is accepted
         swapOwnerIds(tradeOffer)
         Toast.makeText(context, "Offer accepted", Toast.LENGTH_SHORT).show()
+        val tradeId = tradeOffer.tradeId
+        if(tradeId !=null) {
+            val database = FirebaseDatabase.getInstance()
+            val permitRef = database.getReference("tradeoffer").child(tradeId)
+            permitRef.removeValue()
+        }
     }
 
     override fun onDeclineClicked(tradeOffer: TradeOffer) {
         // Handle what happens when an offer is declined
         Toast.makeText(context, "Offer declined", Toast.LENGTH_SHORT).show()
+        val tradeId = tradeOffer.tradeId
+        if(tradeId !=null) {
+            val database = FirebaseDatabase.getInstance()
+            val permitRef = database.getReference("tradeoffer").child(tradeId)
+            permitRef.removeValue()
+        }
     }
 
 

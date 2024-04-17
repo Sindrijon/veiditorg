@@ -67,7 +67,7 @@
         app:layout_constraintHorizontal_bias="0.888"
         app:layout_constraintStart_toEndOf="@+id/tvriver"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/baseline_delete_24" />
+        app:srcCompat="@drawable/baseline_arrow_right_alt_24" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
