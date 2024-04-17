@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,13 +16,11 @@ import com.example.veiditorg.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.veiditorg.adapter.HomepageAdapter
 import com.veiditorg.adapter.MakeOfferAdapter
 import com.veiditorg.modul.Permit
 import com.veiditorg.modul.PermitViewModel
 import com.veiditorg.modul.TradeOffer
 import com.veiditorg.modul.TradeStatus
-import java.util.UUID
 
 class OfferFragment : Fragment(), MakeOfferAdapter.MakeOfferClickListener {
 
@@ -64,6 +63,19 @@ class OfferFragment : Fragment(), MakeOfferAdapter.MakeOfferClickListener {
 
                 adapter.updateOfferList(forTradePermits)
             })
+
+            val riverName = arguments?.getString("river") ?: "Unknown River"
+            val startDate = arguments?.getString("startDate") ?: "Start Date Unknown"
+            val endDate = arguments?.getString("endDate") ?: "End Date Unknown"
+
+            val textViewRiver = view.findViewById<TextView>(R.id.textView4)
+            textViewRiver.text = riverName
+
+            val textViewStartDate = view.findViewById<TextView>(R.id.textView5)
+            textViewStartDate.text = startDate
+
+            val textViewEndDate = view.findViewById<TextView>(R.id.textView6)
+            textViewEndDate.text = endDate
         }
 
     override fun onMakeOfferClicked(permit: Permit) {
@@ -78,12 +90,14 @@ class OfferFragment : Fragment(), MakeOfferAdapter.MakeOfferClickListener {
         val respondingPermitID = arguments?.getString("permitID")
 
 
+
         if (respondingriver == null || respondingStartDate == null || respondingEndDate == null || respondingPermitID == null) {
             Toast.makeText(requireContext(), "Trade information is incomplete.", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val tradeId = generatePermitID()
+        val tradeId = generatePermitID(permit.permitID, respondingPermitID)
+
 
         val newTradeOffer = TradeOffer(
             tradeId = tradeId,
@@ -104,7 +118,8 @@ class OfferFragment : Fragment(), MakeOfferAdapter.MakeOfferClickListener {
             }
     }
 
-    private fun generatePermitID(): String {
-        return UUID.randomUUID().toString()
-}
+    private fun generatePermitID(initiatingPermitId: String?, respondingPermitId: String): String {
+        return initiatingPermitId + respondingPermitId
+    }
+
 }

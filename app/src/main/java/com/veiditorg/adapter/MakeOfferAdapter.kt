@@ -37,6 +37,7 @@ class MakeOfferAdapter(private val makeOfferClickListener: MakeOfferClickListene
     }
 
     class MakeOfferViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
         private val river: TextView = itemView.findViewById(R.id.tvriverOffer)
         private val startDate: TextView = itemView.findViewById(R.id.tvstartdateOffer)
         private val endDate: TextView = itemView.findViewById(R.id.tvenddateOffer)
