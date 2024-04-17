@@ -2,7 +2,9 @@ package com.veiditorg.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.veiditorg.R
@@ -11,91 +13,73 @@ import com.google.firebase.database.FirebaseDatabase
 import com.veiditorg.modul.Permit
 import com.veiditorg.modul.TradeOffer
 
-class TradeOfferAdapter : RecyclerView.Adapter<TradeOfferAdapter.TradeViewHolder>() {
+class TradeOfferAdapter(private val listener: TradeOfferClickListener) : RecyclerView.Adapter<TradeOfferAdapter.TradeViewHolder>() {
 
     private val tradeOfferList = ArrayList<TradeOffer>()
-    private var database: DatabaseReference = FirebaseDatabase.getInstance().getReference("permit")
+    private val database: DatabaseReference = FirebaseDatabase.getInstance().getReference("permit")
 
-
-
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TradeOfferAdapter.TradeViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(
-            R.layout.trade_item,
-            parent,false
-        )
-        return TradeOfferAdapter.TradeViewHolder(itemView)
+    interface TradeOfferClickListener {
+        fun onAcceptClicked(tradeOffer: TradeOffer)
+        fun onDeclineClicked(tradeOffer: TradeOffer)
     }
 
-    override fun getItemCount(): Int {
-        return tradeOfferList.size
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TradeViewHolder {
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.trade_item, parent, false)
+        return TradeViewHolder(itemView, listener)
     }
 
-    fun updatePermitList(tradeOfferList: List<TradeOffer>){
+    override fun getItemCount(): Int = tradeOfferList.size
 
+    fun updatePermitList(tradeOfferList: List<TradeOffer>) {
         this.tradeOfferList.clear()
         this.tradeOfferList.addAll(tradeOfferList)
         notifyDataSetChanged()
     }
 
-    override fun onBindViewHolder(holder: TradeOfferAdapter.TradeViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TradeViewHolder, position: Int) {
         val currentItem = tradeOfferList[position]
-        val initiatingPermitId = currentItem.initiatingPermitId
-        val respondingPermitId = currentItem.respondingPermitId
-
-        // Fetch details for the initiating permit
-        if (initiatingPermitId != null) {
-            database.child(initiatingPermitId).get().addOnSuccessListener { snapshot ->
-                Log.d("firebase", "Fetched data for initiating permit: ${snapshot.value}")
-                val permitDetails = snapshot.getValue(Permit::class.java)
-                if (permitDetails != null) {
-                    holder.setInitiatingPermitDetails(permitDetails)
-                } else {
-                    Log.e("firebase", "No permit details found for initiating permit")
-                    holder.river1.text = "No data"
-                    holder.date1.text = "No data"
-                }
-            }.addOnFailureListener {
-                Log.e("firebase", "Error getting data for initiating permit", it)
-                holder.river1.text = "Error"
-                holder.date1.text = "Error"
-            }
-        }
-
-        // Fetch details for the responding permit
-        if (respondingPermitId != null) {
-            database.child(respondingPermitId).get().addOnSuccessListener { snapshot ->
-                Log.d("firebase", "Fetched data for responding permit: ${snapshot.value}")
-                val permitDetails = snapshot.getValue(Permit::class.java)
-                if (permitDetails != null) {
-                    holder.setRespondingPermitDetails(permitDetails)
-                } else {
-                    Log.e("firebase", "No permit details found for responding permit")
-                    holder.river2.text = "No data"
-                    holder.date2.text = "No data"
-                }
-            }.addOnFailureListener {
-                Log.e("firebase", "Error getting data for responding permit", it)
-                holder.river2.text = "Error"
-                holder.date2.text = "Error"
-            }
-        }
+        holder.bind(currentItem, database)
     }
 
-    class TradeViewHolder(itemView : android.view.View) : RecyclerView.ViewHolder(itemView){
-        val river1: TextView = itemView.findViewById(R.id.textViewOfferedPermitLabel)
-        val date1: TextView = itemView.findViewById(R.id.textViewOfferedPermit)
-        val river2: TextView = itemView.findViewById(R.id.textViewRequestedPermitLabel)
-        val date2: TextView = itemView.findViewById(R.id.textViewRequestedPermit)
+    class TradeViewHolder(itemView: View, private val listener: TradeOfferClickListener) : RecyclerView.ViewHolder(itemView) {
+        private val river1: TextView = itemView.findViewById(R.id.textViewOfferedPermitLabel)
+        private val date1: TextView = itemView.findViewById(R.id.textViewOfferedPermit)
+        private val river2: TextView = itemView.findViewById(R.id.textViewRequestedPermitLabel)
+        private val date2: TextView = itemView.findViewById(R.id.textViewRequestedPermit)
+        private val acceptButton: Button = itemView.findViewById(R.id.buttonAccept)
+        private val declineButton: Button = itemView.findViewById(R.id.buttonDecline)
 
-        fun setInitiatingPermitDetails(permit: Permit) {
-            river1.text = permit.river
-            date1.text = "${permit.startDate} to ${permit.endDate}"
+        fun bind(tradeOffer: TradeOffer, database: DatabaseReference) {
+            val initiatingPermitId = tradeOffer.initiatingPermitId
+            val respondingPermitId = tradeOffer.respondingPermitId
+
+            fetchPermitDetails(initiatingPermitId, river1, date1, database)
+            fetchPermitDetails(respondingPermitId, river2, date2, database)
+
+            acceptButton.setOnClickListener { if (adapterPosition != RecyclerView.NO_POSITION) {
+                listener.onAcceptClicked(tradeOffer)
+
+            }}
+            declineButton.setOnClickListener { if (adapterPosition != RecyclerView.NO_POSITION) {
+                listener.onDeclineClicked(tradeOffer)
+            }}
         }
 
-        fun setRespondingPermitDetails(permit: Permit) {
-            river2.text = permit.river
-            date2.text = "${permit.startDate} to ${permit.endDate}"
+        private fun fetchPermitDetails(permitId: String?, riverView: TextView, dateView: TextView, database: DatabaseReference) {
+            permitId?.let {
+                database.child(it).get().addOnSuccessListener { snapshot ->
+                    snapshot.getValue(Permit::class.java)?.let { permit ->
+                        riverView.text = permit.river
+                        dateView.text = "${permit.startDate} to ${permit.endDate}"
+                    } ?: run {
+                        riverView.text = "No data"
+                        dateView.text = "No data"
+                    }
+                }.addOnFailureListener {
+                    riverView.text = "Error"
+                    dateView.text = "Error"
+                }
+            }
         }
     }
 }

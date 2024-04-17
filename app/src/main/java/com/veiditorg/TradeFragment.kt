@@ -20,34 +20,16 @@ import com.veiditorg.adapter.TradeOfferAdapter
 import com.veiditorg.modul.TradeOffer
 import com.veiditorg.modul.TradeOfferViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [TradeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 
-private lateinit var viewModel: TradeOfferViewModel
-private lateinit var tradeOfferRecyclerView: RecyclerView
-lateinit var adapter: TradeOfferAdapter
 
-class TradeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
+class TradeFragment : Fragment(), TradeOfferAdapter.TradeOfferClickListener {
+
+    private lateinit var viewModel: TradeOfferViewModel
+    private lateinit var tradeOfferRecyclerView: RecyclerView
+    lateinit var adapter: TradeOfferAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,25 +38,6 @@ class TradeFragment : Fragment() {
     }
 
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TradeFragmetn.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TradeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
     private fun swapOwnerIds(tradeOffer: TradeOffer) {
         val databaseRef = FirebaseDatabase.getInstance().getReference()
 
@@ -131,7 +94,7 @@ class TradeFragment : Fragment() {
         tradeOfferRecyclerView = view.findViewById(R.id.TradeOfferrecyclerView)
         tradeOfferRecyclerView.layoutManager = LinearLayoutManager(context)
         tradeOfferRecyclerView.setHasFixedSize(true)
-        adapter = TradeOfferAdapter()
+        adapter = TradeOfferAdapter(this)
         tradeOfferRecyclerView.adapter = adapter
 
         viewModel = ViewModelProvider(this).get(TradeOfferViewModel::class.java)
@@ -140,22 +103,23 @@ class TradeFragment : Fragment() {
             adapter.updatePermitList(it)
         })
 
-//        val buttonAccept: Button = view.findViewById(R.id.buttonAccept)
-//        buttonAccept.setOnClickListener {
-//            // Here, you would need a way to retrieve the selected trade offer.
-//            // This part is dependent on your application's UI logic.
-//            val selectedTradeOffer = getSelectedTradeOffer()
-//            if (selectedTradeOffer != null) {
-//                swapOwnerIds(selectedTradeOffer)
-//            } else {
-//                Toast.makeText(context, "No trade offer selected or available for swapping.", Toast.LENGTH_LONG).show()
-//            }
-//        }
-
-
     }
 
     private fun getSelectedTradeOffer(): TradeOffer? {
         return null  // Placeholder
     }
+
+    override fun onAcceptClicked(tradeOffer: TradeOffer) {
+        // Handle what happens when an offer is accepted
+        swapOwnerIds(tradeOffer)
+        Toast.makeText(context, "Offer accepted", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDeclineClicked(tradeOffer: TradeOffer) {
+        // Handle what happens when an offer is declined
+        Toast.makeText(context, "Offer declined", Toast.LENGTH_SHORT).show()
+    }
+
+
+
 }
