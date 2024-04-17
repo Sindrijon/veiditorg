@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -64,6 +65,19 @@ class OfferFragment : Fragment(), MakeOfferAdapter.MakeOfferClickListener {
 
                 adapter.updateOfferList(forTradePermits)
             })
+
+            val riverName = arguments?.getString("river") ?: "Unknown River"
+            val startDate = arguments?.getString("startDate") ?: "Start Date Unknown"
+            val endDate = arguments?.getString("endDate") ?: "End Date Unknown"
+
+            val textViewRiver = view.findViewById<TextView>(R.id.textView4)
+            textViewRiver.text = riverName
+
+            val textViewStartDate = view.findViewById<TextView>(R.id.textView5)
+            textViewStartDate.text = startDate
+
+            val textViewEndDate = view.findViewById<TextView>(R.id.textView6)
+            textViewEndDate.text = endDate
         }
 
     override fun onMakeOfferClicked(permit: Permit) {
