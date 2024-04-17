@@ -16,13 +16,11 @@ import com.example.veiditorg.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.veiditorg.adapter.HomepageAdapter
 import com.veiditorg.adapter.MakeOfferAdapter
 import com.veiditorg.modul.Permit
 import com.veiditorg.modul.PermitViewModel
 import com.veiditorg.modul.TradeOffer
 import com.veiditorg.modul.TradeStatus
-import java.util.UUID
 
 class OfferFragment : Fragment(), MakeOfferAdapter.MakeOfferClickListener {
 
@@ -92,12 +90,14 @@ class OfferFragment : Fragment(), MakeOfferAdapter.MakeOfferClickListener {
         val respondingPermitID = arguments?.getString("permitID")
 
 
+
         if (respondingriver == null || respondingStartDate == null || respondingEndDate == null || respondingPermitID == null) {
             Toast.makeText(requireContext(), "Trade information is incomplete.", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val tradeId = generatePermitID()
+        val tradeId = generatePermitID(permit.permitID, respondingPermitID)
+
 
         val newTradeOffer = TradeOffer(
             tradeId = tradeId,
@@ -118,7 +118,8 @@ class OfferFragment : Fragment(), MakeOfferAdapter.MakeOfferClickListener {
             }
     }
 
-    private fun generatePermitID(): String {
-        return UUID.randomUUID().toString()
-}
+    private fun generatePermitID(initiatingPermitId: String?, respondingPermitId: String): String {
+        return initiatingPermitId + respondingPermitId
+    }
+
 }
