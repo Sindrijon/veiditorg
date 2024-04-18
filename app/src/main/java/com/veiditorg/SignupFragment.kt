@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.navigation.Navigation
 import com.example.veiditorg.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -32,9 +33,12 @@ class SignupFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         mAuth = FirebaseAuth.getInstance()
 
-        //fjarlægir navigtion bar frá signupFragment
+        //fjarlægir nav bar frá signupFragment
         val bottomNavigationView = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView?.visibility = View.GONE
+
+        val toolbar = activity?.findViewById<Toolbar>(R.id.toolbar)
+        toolbar?.visibility = View.GONE
 
 
         emailInput = view.findViewById<EditText>(R.id.signupEmail)

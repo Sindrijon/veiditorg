@@ -21,6 +21,9 @@ import androidx.fragment.app.Fragment
 import com.example.veiditorg.R
 import com.example.veiditorg.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -50,7 +53,37 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
+        binding.toolbar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.logout -> {
+                    FirebaseAuth.getInstance().signOut()
+                    replaceFragment(LoginFragment())
+                    true
+                }
+                R.id.deleteUser -> {
+                    val user = Firebase.auth.currentUser
+                    if (user != null) {
+                        user.delete()
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    Log.d("UserDeletion", "Account Deleted")
+                                    FirebaseAuth.getInstance().signOut()
+                                    replaceFragment(LoginFragment())
+                                    Toast.makeText(this, "Account successfully deleted.", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    Log.e("UserDeletion", "Failed to delete user account", task.exception)
+                                    Toast.makeText(this, "Failed to delete account. Please try again.", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        true
+                    } else {
+                        Toast.makeText(this, "No user logged in.", Toast.LENGTH_SHORT).show()
+                        false
+                    }
+                }
+                else -> false
+            }
+        }
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.homepage -> replaceFragment(HomepageFragment())
@@ -141,6 +174,5 @@ class MainActivity : AppCompatActivity() {
 
         notificationManager.notify(0, notificationBuilder.build())
     }
-
 
 }
