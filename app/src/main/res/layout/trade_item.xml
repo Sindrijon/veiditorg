@@ -21,29 +21,32 @@
         android:id="@+id/textViewOfferedPermit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:text="Dagsetning: "
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewOfferedPermitLabel"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewOfferedPermitLabel" />
 
     <!-- Requested Permit -->
     <TextView
         android:id="@+id/textViewRequestedPermitLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:text="Requested Permit:"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewOfferedPermit"/>
+        app:layout_constraintTop_toBottomOf="@id/textViewOfferedPermit" />
 
     <TextView
         android:id="@+id/textViewRequestedPermit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:text="Dagsetning: "
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewRequestedPermitLabel"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewRequestedPermitLabel" />
 
     <!-- Action Buttons -->
     <Button
@@ -55,7 +58,8 @@
         app:layout_constraintTop_toBottomOf="@id/textViewRequestedPermit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/buttonDecline"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"/>
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        android:backgroundTint="#1E7AA0"/>
 
     <Button
         android:id="@+id/buttonDecline"
@@ -65,6 +69,7 @@
         app:layout_constraintTop_toTopOf="@id/buttonAccept"
         app:layout_constraintStart_toEndOf="@id/buttonAccept"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/buttonAccept"/>
+        app:layout_constraintBottom_toBottomOf="@id/buttonAccept"
+        android:backgroundTint="#1E7AA0"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
