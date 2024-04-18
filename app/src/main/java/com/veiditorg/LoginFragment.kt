@@ -1,6 +1,11 @@
 package com.veiditorg
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,12 +14,18 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar import androidx.navigation.fragment.findNavController
+import androidx.appcompat.widget.Toolbar
+import androidx.core.app.NotificationCompat
+import androidx.navigation.fragment.findNavController
 import com.example.veiditorg.R
 import com.example.veiditorg.databinding.FragmentLoginBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -84,7 +95,7 @@ class LoginFragment : Fragment() {
     private fun loginUser(email: String, pass: String) {
         mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {task->
             if (task.isSuccessful) {
-
+                notifyUserOfTradeOffers()
                 val transaction = parentFragmentManager.beginTransaction()
                 transaction.replace(R.id.frame_layout, MarketplaceFragment())
                 transaction.addToBackStack(null)
@@ -102,6 +113,51 @@ class LoginFragment : Fragment() {
 
     private fun init(view: View) {
         mAuth = FirebaseAuth.getInstance()
+    }
+
+    private fun notifyUserOfTradeOffers() {
+        val currentUser = mAuth.currentUser
+        val userId = currentUser?.uid ?: return // Return if user ID is null
+
+        // Reference to the trade offers in the database
+        val tradeOffersRef = FirebaseDatabase.getInstance().getReference("tradeoffer")
+        tradeOffersRef.orderByChild("initiatingUserId").equalTo(userId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.children.any()) {
+                        // Notify the user if there are any trade offers
+                        sendNotification("You have trade offers awaiting your attention!")
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    Log.w("DBError", "loadPost:onCancelled", databaseError.toException())
+                }
+            })
+    }
+    private fun sendNotification(message: String) {
+        val CHANNEL_ID = "TradeOffersChannel"
+        val notificationManager = requireActivity().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        // Building the notification
+        val notificationBuilder = NotificationCompat.Builder(requireActivity(), CHANNEL_ID)
+            .setSmallIcon(R.drawable.baseline_circle_notifications_24)
+            .setContentTitle("New Trade Offer")
+            .setContentText(message)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        // For Oreo and above, Notification Channel is needed
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                CHANNEL_ID,
+                "Trade Offers",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        // Issuing the notification
+        notificationManager.notify(0, notificationBuilder.build())
     }
 }
 

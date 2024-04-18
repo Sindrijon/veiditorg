@@ -24,7 +24,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -42,8 +41,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        replaceFragment(LoginFragment())
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        val ownerId = currentUser?.uid ?: ""
 
+        if (ownerId == null) {
+            replaceFragment(LoginFragment())
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if(ContextCompat.checkSelfPermission(this,
                     android.Manifest.permission.POST_NOTIFICATIONS)!=
@@ -95,9 +99,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        auth = FirebaseAuth.getInstance()
-        val currentUser = auth.currentUser
-        val ownerId = currentUser?.uid ?: ""
 
         val database = FirebaseDatabase.getInstance()
         val permitRef = database.getReference("tradeoffer")
@@ -111,10 +112,10 @@ class MainActivity : AppCompatActivity() {
                     return
                 }
  */
-               // Log.d("Notification", "TradeOffer data: $tradeOffer")
+                Log.d("Notification", "TradeOffer data: $tradeOffer")
 
                // Check if the new offer belongs to the current user
-                if (tradeOffer !=null && tradeOffer.initiatingUserId==ownerId) {
+                if (tradeOffer !=null && tradeOffer.respondingUserId==ownerId) {
                     // Notify user about the new offer
 
                     sendNotification("New offer received!")
@@ -174,5 +175,7 @@ class MainActivity : AppCompatActivity() {
 
         notificationManager.notify(0, notificationBuilder.build())
     }
+
+
 
 }
