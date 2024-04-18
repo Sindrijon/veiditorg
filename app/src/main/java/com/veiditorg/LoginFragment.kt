@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
+import androidx.appcompat.widget.Toolbar import androidx.navigation.fragment.findNavController
 import com.example.veiditorg.R
 import com.example.veiditorg.databinding.FragmentLoginBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -29,10 +29,8 @@ class LoginFragment : Fragment() {
     lateinit var loginBtn : Button
     private var _binding: FragmentLoginBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
 
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +49,10 @@ class LoginFragment : Fragment() {
         //fjarlægir navigationbar frá LoginFragment
         val bottomNavigationView = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView?.visibility = View.GONE
+
+        val toolbar = activity?.findViewById<Toolbar>(R.id.toolbar)
+        toolbar?.visibility = View.GONE
+
 
         useremailInput = view.findViewById(R.id.editTextUsername)
         passwordInput = view.findViewById(R.id.editTextPassword)

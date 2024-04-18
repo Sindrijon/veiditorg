@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -39,20 +40,14 @@ class TradeFragment : Fragment(), TradeOfferAdapter.TradeOfferClickListener {
         return inflater.inflate(R.layout.fragment_trade_fragment, container, false)
     }
 
-
     private fun swapOwnerIds(tradeOffer: TradeOffer) {
         val databaseRef = FirebaseDatabase.getInstance().getReference()
 
-        // References to the owner fields in Firebase
-        val initiatingOwnerRef =
-            tradeOffer.initiatingPermitId?.let { databaseRef.child("permit").child(it).child("ownerId") }
-        val respondingOwnerRef =
-            tradeOffer.respondingPermitId?.let { databaseRef.child("permit").child(it).child("ownerId") }
+        val initiatingOwnerRef = tradeOffer.initiatingPermitId?.let { databaseRef.child("permit").child(it).child("ownerId") }
+        val respondingOwnerRef = tradeOffer.respondingPermitId?.let { databaseRef.child("permit").child(it).child("ownerId") }
 
-        // Temporary storage for owner IDs
         var tempOwnerId: String? = null
 
-        // Start by getting the owner ID of the initiating permit
         if (initiatingOwnerRef != null) {
             initiatingOwnerRef.get().addOnSuccessListener { snapshot ->
                 tempOwnerId = snapshot.value as? String  // Store the current initiating ownerId
@@ -61,17 +56,14 @@ class TradeFragment : Fragment(), TradeOfferAdapter.TradeOfferClickListener {
                     return@addOnSuccessListener
                 }
 
-                // Now set the initiating permit's owner ID to the responding user's ID
                 initiatingOwnerRef.setValue(tradeOffer.respondingUserId)
                     .addOnSuccessListener {
-                        // After successfully setting, change the responding permit's owner ID to the stored tempOwnerId
                         if (respondingOwnerRef != null) {
                             respondingOwnerRef.setValue(tempOwnerId)
                                 .addOnSuccessListener {
                                     Toast.makeText(context, "Owner IDs swapped successfully.", Toast.LENGTH_SHORT).show()
                                 }
                                 .addOnFailureListener {
-                                    // Attempt to revert changes if the second update fails
                                     initiatingOwnerRef.setValue(tempOwnerId)
                                     Toast.makeText(context, "Failed to swap owner IDs, reverted changes.", Toast.LENGTH_SHORT).show()
                                 }
@@ -91,6 +83,8 @@ class TradeFragment : Fragment(), TradeOfferAdapter.TradeOfferClickListener {
 
         val bottomNavigationView = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottomNavigationView?.visibility = View.VISIBLE
+        val toolbar = activity?.findViewById<Toolbar>(R.id.toolbar)
+        toolbar?.visibility = View.VISIBLE
 
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
@@ -114,11 +108,10 @@ class TradeFragment : Fragment(), TradeOfferAdapter.TradeOfferClickListener {
     }
 
     private fun getSelectedTradeOffer(): TradeOffer? {
-        return null  // Placeholder
+        return null
     }
 
     override fun onAcceptClicked(tradeOffer: TradeOffer) {
-        // Handle what happens when an offer is accepted
         swapOwnerIds(tradeOffer)
         Toast.makeText(context, "Offer accepted", Toast.LENGTH_SHORT).show()
         val tradeId = tradeOffer.tradeId
@@ -130,7 +123,6 @@ class TradeFragment : Fragment(), TradeOfferAdapter.TradeOfferClickListener {
     }
 
     override fun onDeclineClicked(tradeOffer: TradeOffer) {
-        // Handle what happens when an offer is declined
         Toast.makeText(context, "Offer declined", Toast.LENGTH_SHORT).show()
         val tradeId = tradeOffer.tradeId
         if(tradeId !=null) {
@@ -139,7 +131,4 @@ class TradeFragment : Fragment(), TradeOfferAdapter.TradeOfferClickListener {
             permitRef.removeValue()
         }
     }
-
-
-
 }
